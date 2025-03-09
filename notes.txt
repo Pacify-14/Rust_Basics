@@ -1,0 +1,51 @@
+1. print! vs println!
+2. 'mut' keyword
+3. assert_eq!(x, 5) -> throws error if not equal
+4. annotating type not needed
+5. println!("x is {} , y is {}", x , y );
+6. variable inside scope valid only. 
+7. first main function only, call functions to execute.
+8. scope ke andar same variable ka naam used (without mut also) , then inside that scope the value of that var is the one defined inside scope only.
+9. "Shadowing" : we shadow when the variable declared is to be updated to a different type only, else same data type me just udpating the variable value with the same data type would just need to be mutated.
+10. let (mut x , y) = (1, 2) ; ( 'mut' not outside the pair )
+11. tuple, list declare -> treat as individual variables separately only the varibales...
+
+
+
+###Section 2: 
+1.usize data type is large enough to hold ptr or offset of any data type.
+2.Void return functions return 'unit type', ex: let _v: () = ()  ; fn impl(){print!("what)} -> this function returns unit type only...as it doesn't return anything actually, just prints some statement. 
+3. 
+
+# 1:24:00 ke paas wala part, scope semicolumn, when y is assigned the value of statement and when () is assigned...
+was there difference between scope vs functions.
+ 
+***FUnctions and diverging functions; 
+*** function ka return type dhang ka hona chahiye
+
+### keywords to exit program early -> panic , unimplemented, todo...
+
+### Strings:
+let s1 = String::from("hello");
+-> strins stored in heaps, all other data structures till now stored in stack => stack se access less costly as o(1) op, 
+but heap se element acess is costly , as for that ptr is to be accessed.
+-> each string in rust -> 3 things: 1. memory location in the heap to the actual data, 2. len, 3. capacity ke ptrs.
+Therefore, size_of (string) = 3 * 8 (3 ptrs, each ptr is 'u_size', and u_size is of 8 size)
+*** Thus copy is expensive from string, but updation is easy
+
+let s2 = s1 (move not copy)
+-> s2 points to the same location and same details as s1, but from the rule " no single data can have multiple owners" ,
+so the data of s1 can't have s1 and s2 - 2 owners. So, s2 is removed to avoid dangling pts. 
+Hence , s2 -> points to previous data of s1, and S1 IS DROPPED!! (So, acessing s1 just after s2 = s1 is not a valid operaton***)
+
+STILL COPY?? s2 = s1.clone(), then s2 ke liye ek alag address pe the same data of s1 is copied, and that location's address
+is stored in s2.
+
+### as_byte, into_bytes (data)
+into_bytes -> converts the string into bytes, and the string itself is consumed. 
+as_bytes -> converts the string into a byte vector(takes references) , and the owner doesnot get consumed. So the string ka variable remains the owner of that particular string data. 
+
+###Difference between string and string_mutable. Can be used instead for direct copying instead of cloning, it is stored in stack memory. 
+
+
+##*** Rule: we can only have ONE mutable reference at a time 
